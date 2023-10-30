@@ -2,12 +2,18 @@ name: 'check-conventional-commits'
 description: 'Checks if all the commits (of the branch which triggered the event) comply to the conventional commits standard'
 author: Alex Speranza
 
+inputs:
+  token:
+    description: 'Personal access token with pull permissions on repository'
+    required: true
+
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v4.1.1
       with:
         fetch-depth: 0
+        token: ${{ inputs.token }}
     - run: [ "$(git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | wc -l)" -eq "0" ]
       shell: bash
 
