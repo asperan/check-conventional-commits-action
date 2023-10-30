@@ -15,6 +15,6 @@ runs:
         fetch-depth: 0
         token: ${{ inputs.token }}
     - run: >
-        test "$(git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | wc -l)" -eq "0"
+        test "$(git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | awk 'END {print NR}')" -eq "0"
       shell: bash
 
