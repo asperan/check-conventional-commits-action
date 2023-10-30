@@ -1,5 +1,7 @@
 name: 'check-conventional-commits'
 description: 'Checks if all the commits (of the branch which triggered the event) comply to the conventional commits standard'
+author: Alex Speranza
+
 runs:
   using: "composite"
   steps:
