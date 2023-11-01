@@ -1,0 +1,31 @@
+on: [push]
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    name: Run script test
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Run script
+        run: >
+          ./script.sh
+        id: commit-lint
+
+      - name: Check 0 errors
+        run: >
+          test "${{ steps.commit-lint.outputs.rows }}" -eq "0"
+
+  test-action:
+    runs-on: ubuntu-latest
+    name: Run actions test
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Run action
+        uses: ./
+        id: commit-lint
+
+      - name: Check 0 errors
+        run: >
+          test "${{ steps.commit-lint.outputs.rows }}" -eq "0"
