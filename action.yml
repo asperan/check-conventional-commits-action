@@ -7,6 +7,11 @@ inputs:
     description: 'Personal access token with pull permissions on repository'
     required: true
 
+outputs:
+  errors:
+    description: 'Number of non conventional commit messages'
+    value: ${{ steps.run-script.outputs.errors }}
+
 runs:
   using: "composite"
   steps:
@@ -14,7 +19,8 @@ runs:
       with:
         fetch-depth: 0
         token: ${{ inputs.token }}
-    - run: >
-        test "$(git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | awk 'END {print NR}')" -eq "0"
+    - id: run-script
+      run: >
+        test "$(./script.sh)" -eq "0"
       shell: bash
 
