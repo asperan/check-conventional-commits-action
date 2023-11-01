@@ -25,6 +25,8 @@ jobs:
       - name: Run action
         uses: ./
         id: commit-lint
+        with:
+          token: ${{ github.token }}
 
       - name: Check 0 errors
         run: >
