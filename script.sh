@@ -6,7 +6,7 @@ if ! command -v git &> /dev/null; then
     exit 2
 fi
 
-ERRORS=`git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | awk 'END {print NR}'`
+ERRORS="$(git log --grep='^\w+(\((\w|-)+\))?!?: .+$' --invert-grep -E --pretty=format:%s | awk 'END {print NR}')"
 echo "$ERRORS"
 
 if [[ -n $GITHUB_ACTIONS && $GITHUB_ACTIONS == true ]]; then
