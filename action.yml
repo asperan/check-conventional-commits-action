@@ -21,6 +21,6 @@ runs:
         token: ${{ inputs.token }}
     - id: run-script
       run: >
-        [[ $(./script.sh) -eq "0" ]]
+        test "$(./script.sh)" -eq "0"
       shell: bash
 
