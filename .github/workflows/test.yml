@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    name: Run actions test
+    steps:
+      - uses: actions/checkout@v4.1.1
+
+      - name: Run action
+        uses: ./
+        id: commit-lint
+        with:
+          token: ${{ github.token }}
+
+      - name: Check 0 errors
+        run: >
+          test "${{ steps.commit-lint.outputs.errors }}" -eq "0"
